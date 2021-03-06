@@ -1,3 +1,5 @@
+// Credit for Mandelbrot set generation algorithm to Adam Sampson
+
 #include <iostream>
 #include <chrono>
 #include <string>
@@ -15,12 +17,15 @@ using std::chrono::system_clock;
 using std::ofstream;
 using std::complex;
 using std::thread;
+using std::chrono::duration_cast;
+using std::chrono::milliseconds;
+
 
 typedef steady_clock theClock; // alias for clock type that's going to be used
 
 // size of image
-const int width = 1280;
-const int height = 960;
+const unsigned int width = 1280;
+const unsigned int height = 960;
 
 int MAX_IT = 500; // the amount of times we iterate before we determine a point isn't in the set
 
@@ -47,7 +52,7 @@ void write_tga() {
 			24, //bits per pixel
 			0, //image descriptor
 	};
-	outfile.write((const char*)header, 18);
+	outfile.write((const char *)header, 18);
 
 	for (auto & y : image) {
 		for (unsigned int x : y) {
@@ -56,7 +61,7 @@ void write_tga() {
 				static_cast<uint8_t>(x >> 8 & 0xFF), // green
 				static_cast<uint8_t>(x >> 16 & 0xFF), // red
 			};
-			outfile.write((const char*)pixel, 3);
+			outfile.write((const char *)pixel, 3);
 		}
 
 		outfile.close();
@@ -70,9 +75,10 @@ void write_tga() {
 }
 
 void compute(int left, int right, double top, double bottom, unsigned start, unsigned end) {
-	for (int y = start; y < end; ++y) {
+	int y;
+	for (y = start; y < end; ++y) {
 		for (int x = 0; x < width; ++x) {
-			complex<double> c(left + (x * (right - left) / width), top + (y * (bottom - top) / height));
+			complex<double> c(left + x * (right - left) / width, top + (y * (bottom - top) / height));
 			complex<double> z(0.0, 0.0);
 
 			int it = 0;
@@ -90,7 +96,7 @@ void compute(int left, int right, double top, double bottom, unsigned start, uns
 	}
 }
 
-int main() {
+int main(int argc, char *argv[]) {
 	cout << "CMP 202 Mandelbrot Set Generator - 2021 Isaac Basque-Rice" << endl;
 
 	string firstColourName;
@@ -192,7 +198,7 @@ int main() {
 
 	theClock::time_point end = theClock::now();
 
-	auto timeTaken = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+	auto timeTaken = duration_cast<milliseconds>(end - start).count();
 	cout << "Time taken to generate: " << timeTaken << "ms" << endl;
 
 	return 0;

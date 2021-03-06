@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
-project(Madelbrot)
+project(Mandelbrot)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Madelbrot main.cpp)
+add_executable(Mandelbrot main.cpp)
