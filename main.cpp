@@ -24,14 +24,16 @@ using std::chrono::milliseconds;
 typedef steady_clock theClock; // alias for clock type that's going to be used
 
 // size of image
-const unsigned int width = 1280;
-const unsigned int height = 960;
+const int width = 1280;
+const int height = 960;
 
-int MAX_IT = 500; // the amount of times we iterate before we determine a point isn't in the set
+int MAX_IT = 1024; // the amount of times we iterate before we determine a point isn't in the set
 
 uint32_t image[height][width]; // image data represented as 0xRRGGBB
 
-int firstColour, secondColour; // the two colours that the mandelbrot set will be made up of
+// the two colours that the mandelbrot set will be made up of
+int firstColour;
+int secondColour;
 
 void write_tga() {
 	auto timeNow = system_clock::to_time_t(system_clock::now());
@@ -40,7 +42,7 @@ void write_tga() {
 
 	ofstream outfile(filename, ofstream::binary);
 
-	uint32_t header[18] = {
+	uint8_t header[18] = {
 			0, //no image ID
 			0, //no colour map
 			2, //uncompressed 24-bit image
@@ -54,15 +56,18 @@ void write_tga() {
 	};
 	outfile.write((const char *)header, 18);
 
-	for (auto & y : image) {
-		for (unsigned int x : y) {
+	for (auto & y : image)
+	{
+		for (unsigned int x : y)
+		{
 			uint8_t pixel[3] = {
-				static_cast<uint8_t>(x & 0xFF), // blue
-				static_cast<uint8_t>(x >> 8 & 0xFF), // green
-				static_cast<uint8_t>(x >> 16 & 0xFF), // red
+					static_cast<uint8_t>(x & 0xFF), // blue channel
+					static_cast<uint8_t>((x >> 8) & 0xFF), // green channel
+					static_cast<uint8_t>((x >> 16) & 0xFF), // red channel
 			};
 			outfile.write((const char *)pixel, 3);
 		}
+	}
 
 		outfile.close();
 		if (!outfile)
@@ -71,13 +76,13 @@ void write_tga() {
 			cout << "Error writing to " << filename << endl;
 			exit(1);
 		}
-	}
-}
 
-void compute(int left, int right, double top, double bottom, unsigned start, unsigned end) {
-	int y;
-	for (y = start; y < end; ++y) {
-		for (int x = 0; x < width; ++x) {
+	}
+
+void compute(double left, double right, double top, double bottom, int start, int end) {
+
+	for (int x = start; x <= end; ++x) {
+		for (int y = 0; y < height; ++y) {
 			complex<double> c(left + x * (right - left) / width, top + (y * (bottom - top) / height));
 			complex<double> z(0.0, 0.0);
 
@@ -103,7 +108,7 @@ int main(int argc, char *argv[]) {
 	string secondColourName;
 	
 	// colour values
-	const int white = 0xFFFFF;
+	const int white = 0xFFFFFF;
 	const int black = 0x000000;
 	const int red = 0xFF0000;
 	const int orange = 0xFFA500;
@@ -115,7 +120,7 @@ int main(int argc, char *argv[]) {
 
 	cout << "Colours: \n 1: White \n 2: Black \n 3: Red \n 4: Orange \n 5: Yellow \n 6: Green \n 7: Blue \n 8: Indigo \n 9: Violet" << endl;
 
-	cout << "Please choose your first colour (1-9): " << endl;
+	cout << "Please choose your foreground colour (1-9): " << endl;
 
 	cin >> firstColour;
 
@@ -142,7 +147,7 @@ int main(int argc, char *argv[]) {
 			break;
 	}
 
-	cout << "Please choose your second colour (1-9): " << endl;
+	cout << "Please choose your background colour (1-9): " << endl;
 
 	cin >> secondColour;
 
@@ -170,28 +175,25 @@ int main(int argc, char *argv[]) {
 
 	cout << "Generating a " << firstColourName << " and " << secondColourName << " Mandelbrot Set..." << endl;
 
-	int left = -2;
-	int right = 1;
+	double left = -2;
+	double right = 1;
 	double top = 1.125;
 	double bottom = -1.125;
 
-	theClock::time_point start = theClock::now();{
-		thread a(compute, left, right, top, bottom, 0, 160);
-		thread b(compute, left, right, top, bottom, 161, 320);
-		thread c(compute, left, right, top, bottom, 321, 480);
-		thread d(compute, left, right, top, bottom, 481, 640);
-		thread e(compute, left, right, top, bottom, 641, 800);
-		thread f(compute, left, right, top, bottom, 801, 960);
-		thread g(compute, left, right, top, bottom, 961, 1120);
-		thread h(compute, left, right, top, bottom, 1121, 1280);
-		a.join();
-		b.join();
-		c.join();
-		d.join();
-		e.join();
-		f.join();
-		g.join();
-		h.join();
+	theClock::time_point start = theClock::now();
+
+	const int threadNum = 7; // indexes start at zero so factor of 1280 - 1
+	const int chunkSize = width/threadNum;
+
+	thread *threads[threadNum];
+
+	for (int i = 0; i < threadNum; ++i) {
+		threads[i] = new thread(compute, left, right, top, bottom, (0 + chunkSize * i), chunkSize + chunkSize * i);
+	}
+
+	for (int i = 0; i < threadNum; ++i) {
+		threads[i]->join();
+		delete(threads[i]);
 	}
 
 	write_tga();
