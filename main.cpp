@@ -1,4 +1,4 @@
-// Credit for Mandelbrot set generation algorithm to Adam Sampson
+// Credit for Mandelbrot set generation algorithm and file write algorithm to Adam Sampson
 
 #include <iostream>
 #include <chrono>
@@ -7,19 +7,25 @@
 #include <complex>
 #include <thread>
 
+// iostream
 using std::cout;
 using std::endl;
+using std::cin;
+
+// (x)string
 using std::string;
 using std::to_string;
-using std::cin;
+
+// chrono
 using std::chrono::steady_clock;
 using std::chrono::system_clock;
-using std::ofstream;
-using std::complex;
-using std::thread;
 using std::chrono::duration_cast;
 using std::chrono::milliseconds;
 
+// misc
+using std::ofstream;
+using std::complex;
+using std::thread;
 
 typedef steady_clock theClock; // alias for clock type that's going to be used
 
@@ -27,7 +33,7 @@ typedef steady_clock theClock; // alias for clock type that's going to be used
 const int width = 1280;
 const int height = 960;
 
-int MAX_IT = 1024; // the amount of times we iterate before we determine a point isn't in the set
+int MAX_IT = 500; // the amount of times we iterate before we determine a point isn't in the set
 
 uint32_t image[height][width]; // image data represented as 0xRRGGBB
 
@@ -35,10 +41,23 @@ uint32_t image[height][width]; // image data represented as 0xRRGGBB
 int firstColour;
 int secondColour;
 
+string filename;
+
+void write_txt(int threads, int time, const string& colourOne, const string& colourTwo) {
+	ofstream outfile;
+
+	outfile.open("output\\index.txt", std::ios_base::app); // append instead of overwrite
+	outfile << filename <<
+	": \n Resolution: " << width << "*" << height <<
+	"\n Colours: " << colourOne << " & " << colourTwo <<
+	"\n Number of threads: " << (threads + 1) <<
+	"\n Time Taken: " << time << "ms \n\n";
+}
+
+// write mandelbrot to .tga file
 void write_tga() {
 	auto timeNow = system_clock::to_time_t(system_clock::now());
-	string filename;
-	filename = "mandelbrot-" + to_string(timeNow) + ".tga";
+	filename = "output\\mandelbrot-" + to_string(timeNow) + ".tga"; // done this way so each file can have a unique filename
 
 	ofstream outfile(filename, ofstream::binary);
 
@@ -56,36 +75,44 @@ void write_tga() {
 	};
 	outfile.write((const char *)header, 18);
 
-	for (auto & y : image)
-	{
-		for (unsigned int x : y)
-		{
+	// converted to range based thanks to clang-tidy :)
+	for (auto & y : image) {
+		for (unsigned int x : y) {
 			uint8_t pixel[3] = {
 					static_cast<uint8_t>(x & 0xFF), // blue channel
-					static_cast<uint8_t>((x >> 8) & 0xFF), // green channel
-					static_cast<uint8_t>((x >> 16) & 0xFF), // red channel
+					static_cast<uint8_t>(x >> 8 & 0xFF), // green channel
+					static_cast<uint8_t>(x >> 16 & 0xFF), // red channel
 			};
 			outfile.write((const char *)pixel, 3);
 		}
 	}
 
-		outfile.close();
-		if (!outfile)
-		{
-			// An error has occurred at some point
-			cout << "Error writing to " << filename << endl;
-			exit(1);
-		}
+	outfile.close();
 
+	// error handling
+	if (!outfile)
+	{
+		// An error has occurred at some point
+		cout << "Error writing to " << filename << endl;
+		exit(1);
 	}
 
+}
+
+// Render the Mandelbrot set into the image array.
+// The parameters specify the region on the complex plane to plot.
 void compute(double left, double right, double top, double bottom, int start, int end) {
 
 	for (int x = start; x <= end; ++x) {
 		for (int y = 0; y < height; ++y) {
+
+			// Work out the point in the complex plane that corresponds to this pixel in the output image
 			complex<double> c(left + x * (right - left) / width, top + (y * (bottom - top) / height));
+
+			// Start off z at (0, 0)
 			complex<double> z(0.0, 0.0);
 
+			// Iterate z = z^2 + c until z moves more than 2 units away from (0, 0), or we've iterated too many times.
 			int it = 0;
 			while (abs(z) < 2.0 && it < MAX_IT) {
 				z = (z * z) + c;
@@ -93,15 +120,17 @@ void compute(double left, double right, double top, double bottom, int start, in
 			}
 
 			if (it == MAX_IT) {
+				// z didn't escape the circle therefore point is in mandelbrot set
 				image[y][x] = firstColour;
 			} else {
+				// z escaped within < MAX_IT, the point isn't in the set
 				image[y][x] = secondColour;
 			}
 		}
 	}
 }
 
-int main(int argc, char *argv[]) {
+int main() {
 	cout << "CMP 202 Mandelbrot Set Generator - 2021 Isaac Basque-Rice" << endl;
 
 	string firstColourName;
@@ -182,8 +211,8 @@ int main(int argc, char *argv[]) {
 
 	theClock::time_point start = theClock::now();
 
-	const int threadNum = 7; // indexes start at zero so factor of 1280 - 1
-	const int chunkSize = width/threadNum;
+	const int threadNum = 7; // indexes start at zero so only valid numbers are a factor of width - 1
+	const int chunkSize = width/threadNum; // get the size of each "chunk" that's being calculated by each thread
 
 	thread *threads[threadNum];
 
@@ -202,6 +231,8 @@ int main(int argc, char *argv[]) {
 
 	auto timeTaken = duration_cast<milliseconds>(end - start).count();
 	cout << "Time taken to generate: " << timeTaken << "ms" << endl;
+
+	write_txt(threadNum, timeTaken, firstColourName, secondColourName);
 
 	return 0;
 }
