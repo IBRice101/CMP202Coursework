@@ -1,4 +1,5 @@
 // Credit for Mandelbrot set generation algorithm and file write algorithm to Adam Sampson
+// (with a few tweaks by me)
 
 #include <iostream>
 #include <chrono>
@@ -26,6 +27,9 @@ using std::chrono::milliseconds;
 using std::ofstream;
 using std::complex;
 using std::thread;
+using std::system;
+using std::streamsize;
+
 
 typedef steady_clock theClock; // alias for clock type that's going to be used
 
@@ -43,6 +47,8 @@ int secondColour;
 
 string filename;
 
+string colourSelect = "Colours: \n 1: White \n 2: Black \n 3: Red \n 4: Orange \n 5: Yellow \n 6: Green \n 7: Blue \n 8: Indigo \n 9: Violet";
+
 void write_txt(int threads, int time, const string& colourOne, const string& colourTwo) {
 	ofstream outfile;
 
@@ -57,7 +63,7 @@ void write_txt(int threads, int time, const string& colourOne, const string& col
 // write mandelbrot to .tga file
 void write_tga() {
 	auto timeNow = system_clock::to_time_t(system_clock::now());
-	filename = "output\\mandelbrot-" + to_string(timeNow) + ".tga"; // done this way so each file can have a unique filename
+	filename = "output\\mandelbrot-" + to_string(timeNow) + ".tga"; // each file can have a unique filename
 
 	ofstream outfile(filename, ofstream::binary);
 
@@ -147,7 +153,7 @@ int main() {
 	const int indigo = 0x4B0082;
 	const int violet = 0x8F00FF;
 
-	cout << "Colours: \n 1: White \n 2: Black \n 3: Red \n 4: Orange \n 5: Yellow \n 6: Green \n 7: Blue \n 8: Indigo \n 9: Violet" << endl;
+	cout << colourSelect << endl;
 
 	cout << "Please choose your foreground colour (1-9): " << endl;
 
@@ -202,7 +208,19 @@ int main() {
 		default: secondColour = black; secondColourName = "Black";
 	}
 
-	cout << "Generating a " << firstColourName << " and " << secondColourName << " Mandelbrot Set..." << endl;
+	int threadNumIn = 0;
+	cout << "How many threads would you like to use? (must be a factor of " << width << "):" << endl;
+
+	while (true) {
+		cin >> threadNumIn;
+		if (width % threadNumIn != 0) {
+			cout << "That number is not a factor of " << width << ", please try again" << endl;
+		} else {
+			break;
+		}
+	}
+
+	cout << "Generating a " << firstColourName << " and " << secondColourName << " Mandelbrot Set, using " << threadNumIn << " threads..." << endl;
 
 	double left = -2;
 	double right = 1;
@@ -211,18 +229,17 @@ int main() {
 
 	theClock::time_point start = theClock::now();
 
-	const int threadNum = 7; // indexes start at zero so only valid numbers are a factor of width - 1
+	int threadNum = threadNumIn - 1; // array indexes start at zero so only valid numbers are a factor of width - 1
 	const int chunkSize = width/threadNum; // get the size of each "chunk" that's being calculated by each thread
 
-	thread *threads[threadNum];
+	auto *threads = new thread[threadNum];
 
 	for (int i = 0; i < threadNum; ++i) {
-		threads[i] = new thread(compute, left, right, top, bottom, (0 + chunkSize * i), chunkSize + chunkSize * i);
+		threads[i] = thread(compute, left, right, top, bottom, (0 + chunkSize * i), chunkSize + chunkSize * i);
 	}
 
 	for (int i = 0; i < threadNum; ++i) {
-		threads[i]->join();
-		delete(threads[i]);
+		threads[i].join();
 	}
 
 	write_tga();
