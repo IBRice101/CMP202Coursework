@@ -8,30 +8,7 @@
 #include <complex>
 #include <thread>
 
-// iostream
-using std::cout;
-using std::endl;
-using std::cin;
-
-// (x)string
-using std::string;
-using std::to_string;
-
-// chrono
-using std::chrono::steady_clock;
-using std::chrono::system_clock;
-using std::chrono::duration_cast;
-using std::chrono::milliseconds;
-
-// misc
-using std::ofstream;
-using std::complex;
-using std::thread;
-using std::system;
-using std::streamsize;
-
-
-typedef steady_clock theClock; // alias for clock type that's going to be used
+typedef std::chrono::steady_clock theClock; // alias for clock type that's going to be used
 
 // size of image
 const int width = 1280;
@@ -45,12 +22,10 @@ uint32_t image[height][width]; // image data represented as 0xRRGGBB
 int firstColour;
 int secondColour;
 
-string filename;
+std::string filename;
 
-string colourSelect = "Colours: \n 1: White \n 2: Black \n 3: Red \n 4: Orange \n 5: Yellow \n 6: Green \n 7: Blue \n 8: Indigo \n 9: Violet";
-
-void write_txt(int threads, int time, const string& colourOne, const string& colourTwo) {
-	ofstream outfile;
+void write_txt(int threads, int time, const std::string& colourOne, const std::string& colourTwo) {
+	std::ofstream outfile;
 
 	outfile.open("output\\index.txt", std::ios_base::app); // append instead of overwrite
 	outfile << filename <<
@@ -62,10 +37,10 @@ void write_txt(int threads, int time, const string& colourOne, const string& col
 
 // write mandelbrot to .tga file
 void write_tga() {
-	auto timeNow = system_clock::to_time_t(system_clock::now());
-	filename = "output\\mandelbrot-" + to_string(timeNow) + ".tga"; // each file can have a unique filename
+	auto timeNow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+	filename = "output\\mandelbrot-" + std::to_string(timeNow) + ".tga"; // each file can have a unique filename
 
-	ofstream outfile(filename, ofstream::binary);
+	std::ofstream outfile(filename, std::ofstream::binary);
 
 	uint8_t header[18] = {
 			0, //no image ID
@@ -99,7 +74,7 @@ void write_tga() {
 	if (!outfile)
 	{
 		// An error has occurred at some point
-		cout << "Error writing to " << filename << endl;
+		std::cout << "Error writing to " << filename << std::endl;
 		exit(1);
 	}
 
@@ -113,10 +88,10 @@ void compute(double left, double right, double top, double bottom, int start, in
 		for (int y = 0; y < height; ++y) {
 
 			// Work out the point in the complex plane that corresponds to this pixel in the output image
-			complex<double> c(left + x * (right - left) / width, top + (y * (bottom - top) / height));
+			std::complex<double> c(left + x * (right - left) / width, top + (y * (bottom - top) / height));
 
 			// Start off z at (0, 0)
-			complex<double> z(0.0, 0.0);
+			std::complex<double> z(0.0, 0.0);
 
 			// Iterate z = z^2 + c until z moves more than 2 units away from (0, 0), or we've iterated too many times.
 			int it = 0;
@@ -137,10 +112,10 @@ void compute(double left, double right, double top, double bottom, int start, in
 }
 
 int main() {
-	cout << "CMP 202 Mandelbrot Set Generator - 2021 Isaac Basque-Rice" << endl;
+	std::cout << "CMP 202 Mandelbrot Set Generator - 2021 Isaac Basque-Rice" << std::endl;
 
-	string firstColourName;
-	string secondColourName;
+	std::string firstColourName;
+	std::string secondColourName;
 	
 	// colour values
 	const int white = 0xFFFFFF;
@@ -153,11 +128,11 @@ int main() {
 	const int indigo = 0x4B0082;
 	const int violet = 0x8F00FF;
 
-	cout << colourSelect << endl;
+	std::cout << "Colours: \n 1: White \n 2: Black \n 3: Red \n 4: Orange \n 5: Yellow \n 6: Green \n 7: Blue \n 8: Indigo \n 9: Violet" << std::endl;
 
-	cout << "Please choose your foreground colour (1-9): " << endl;
+	std::cout << "Please choose your foreground colour (1-9): " << std::endl;
 
-	cin >> firstColour;
+	std::cin >> firstColour;
 
 	switch (firstColour) {
 		case 1: firstColour = white; firstColourName = "White";
@@ -182,9 +157,9 @@ int main() {
 			break;
 	}
 
-	cout << "Please choose your background colour (1-9): " << endl;
+	std::cout << "Please choose your background colour (1-9): " << std::endl;
 
-	cin >> secondColour;
+	std::cin >> secondColour;
 
 	switch (secondColour) {
 		case 1: secondColour = white; secondColourName = "White";
@@ -209,18 +184,18 @@ int main() {
 	}
 
 	int threadNumIn = 0;
-	cout << "How many threads would you like to use? (must be a factor of " << width << "):" << endl;
+	std::cout << "How many threads would you like to use? (must be a factor of " << width << "):" << std::endl;
 
 	while (true) {
-		cin >> threadNumIn;
+		std::cin >> threadNumIn;
 		if (width % threadNumIn != 0) {
-			cout << "That number is not a factor of " << width << ", please try again" << endl;
+			std::cout << "That number is not a factor of " << width << ", please try again" << std::endl;
 		} else {
 			break;
 		}
 	}
 
-	cout << "Generating a " << firstColourName << " and " << secondColourName << " Mandelbrot Set, using " << threadNumIn << " threads..." << endl;
+	std::cout << "Generating a " << firstColourName << " and " << secondColourName << " Mandelbrot Set, using " << threadNumIn << " threads..." << std::endl;
 
 	double left = -2;
 	double right = 1;
@@ -232,10 +207,10 @@ int main() {
 	int threadNum = threadNumIn - 1; // array indexes start at zero so only valid numbers are a factor of width - 1
 	const int chunkSize = width/threadNum; // get the size of each "chunk" that's being calculated by each thread
 
-	auto *threads = new thread[threadNum];
+	auto *threads = new std::thread[threadNum];
 
 	for (int i = 0; i < threadNum; ++i) {
-		threads[i] = thread(compute, left, right, top, bottom, (0 + chunkSize * i), chunkSize + chunkSize * i);
+		threads[i] = std::thread(compute, left, right, top, bottom, (0 + chunkSize * i), chunkSize + chunkSize * i);
 	}
 
 	for (int i = 0; i < threadNum; ++i) {
@@ -246,8 +221,8 @@ int main() {
 
 	theClock::time_point end = theClock::now();
 
-	auto timeTaken = duration_cast<milliseconds>(end - start).count();
-	cout << "Time taken to generate: " << timeTaken << "ms" << endl;
+	auto timeTaken = duration_cast<std::chrono::milliseconds>(end - start).count();
+	std::cout << "Time taken to generate: " << timeTaken << "ms" << std::endl;
 
 	write_txt(threadNum, timeTaken, firstColourName, secondColourName);
 
