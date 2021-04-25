@@ -14,13 +14,7 @@ typedef std::chrono::steady_clock theClock; // alias for clock type that's going
 const int width = 1280;
 const int height = 960;
 
-int MAX_IT = 500; // the amount of times we iterate before we determine a point isn't in the set
-
 uint32_t image[height][width]; // image data represented as 0xRRGGBB
-
-// the two colours that the mandelbrot set will be made up of
-int firstColour;
-int secondColour;
 
 std::string filename;
 
@@ -82,7 +76,9 @@ void write_tga() {
 
 // Render the Mandelbrot set into the image array.
 // The parameters specify the region on the complex plane to plot.
-void compute(double left, double right, double top, double bottom, int start, int end) {
+void compute(double left, double right, double top, double bottom, int start, int end, int firstColour, int secondColour) {
+
+	int MAX_IT = 500; // the amount of times we iterate before we determine a point isn't in the set
 
 	for (int x = start; x <= end; ++x) {
 		for (int y = 0; y < height; ++y) {
@@ -113,6 +109,10 @@ void compute(double left, double right, double top, double bottom, int start, in
 
 int main() {
 	std::cout << "CMP 202 Mandelbrot Set Generator - 2021 Isaac Basque-Rice" << std::endl;
+
+	// the two colours that the mandelbrot set will be made up of
+	int firstColour;
+	int secondColour;
 
 	std::string firstColourName;
 	std::string secondColourName;
@@ -210,7 +210,7 @@ int main() {
 	auto *threads = new std::thread[threadNum];
 
 	for (int i = 0; i < threadNum; ++i) {
-		threads[i] = std::thread(compute, left, right, top, bottom, (0 + chunkSize * i), chunkSize + chunkSize * i);
+		threads[i] = std::thread(compute, left, right, top, bottom, (0 + chunkSize * i), chunkSize + chunkSize * i, firstColour, secondColour);
 	}
 
 	for (int i = 0; i < threadNum; ++i) {
@@ -221,7 +221,7 @@ int main() {
 
 	theClock::time_point end = theClock::now();
 
-	auto timeTaken = duration_cast<std::chrono::milliseconds>(end - start).count();
+	auto timeTaken = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 	std::cout << "Time taken to generate: " << timeTaken << "ms" << std::endl;
 
 	write_txt(threadNum, timeTaken, firstColourName, secondColourName);
