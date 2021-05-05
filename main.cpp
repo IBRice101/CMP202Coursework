@@ -114,6 +114,7 @@ int main() {
 	int firstColour;
 	int secondColour;
 
+	// the names of the colours
 	std::string firstColourName;
 	std::string secondColourName;
 	
@@ -181,6 +182,7 @@ int main() {
 		case 9: secondColour = violet; secondColourName = "Violet";
 			break;
 		default: secondColour = black; secondColourName = "Black";
+			break;
 	}
 
 	int threadNumIn = 0;
@@ -202,6 +204,7 @@ int main() {
 	double top = 1.125;
 	double bottom = -1.125;
 
+	// <execution>
 	theClock::time_point start = theClock::now();
 
 	int threadNum = threadNumIn - 1; // array indexes start at zero so only valid numbers are a factor of width - 1
@@ -213,6 +216,10 @@ int main() {
 		threads[i] = std::thread(compute, left, right, top, bottom, (0 + chunkSize * i), chunkSize + chunkSize * i, firstColour, secondColour);
 	}
 
+	//TODO: Figure out something to put here that uses another thread
+		// must be able to share data across threads through the use of mutexes, atomic operations, or barriers
+		// must also be able to use condition variables to signal between threads
+
 	for (int i = 0; i < threadNum; ++i) {
 		threads[i].join();
 	}
@@ -220,6 +227,7 @@ int main() {
 	write_tga();
 
 	theClock::time_point end = theClock::now();
+	// </execution>
 
 	auto timeTaken = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 	std::cout << "Time taken to generate: " << timeTaken << "ms" << std::endl;

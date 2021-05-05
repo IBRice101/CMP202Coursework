@@ -15,7 +15,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8eec58ed-749c-4f6b-b557-0560a4380fc4" name="Default Changelist" comment="formatting changes">
+    <list default="true" id="8eec58ed-749c-4f6b-b557-0560a4380fc4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
@@ -42,7 +42,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../lab1/mandelbrot" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -57,9 +57,9 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -88,7 +88,11 @@
       <workItem from="1618917881208" duration="8051000" />
       <workItem from="1619224471589" duration="637000" />
       <workItem from="1619279509637" duration="9588000" />
-      <workItem from="1619356530878" duration="3254000" />
+      <workItem from="1619356530878" duration="9461000" />
+      <workItem from="1619558560349" duration="318000" />
+      <workItem from="1620052938049" duration="2253000" />
+      <workItem from="1620173088868" duration="147000" />
+      <workItem from="1620215054019" duration="5354000" />
     </task>
     <task id="LOCAL-00001" summary="colour stuff">
       <created>1614633408824</created>
@@ -139,7 +143,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619282658004</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="removed as many global variables as possible for formatting purposes">
+      <created>1619359876375</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1619359876375</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -153,33 +164,34 @@
     <MESSAGE value="added comments, reformatted, and added a function that writes data about the image to a mandelbrot set for later processing" />
     <MESSAGE value="users can now control the number of threads that are used" />
     <MESSAGE value="formatting changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="formatting changes" />
+    <MESSAGE value="removed as many global variables as possible for formatting purposes" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed as many global variables as possible for formatting purposes" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="265" y="72" key="CommitChangelistDialog2" timestamp="1619285983535">
+    <state x="265" y="72" key="CommitChangelistDialog2" timestamp="1619359869315">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="265" y="72" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619285983535" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1619285140850">
+    <state x="265" y="72" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619359869315" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1620220971668">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619285140850" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1619359537105">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620220971668" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1619398436012">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619359537105" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1619359537105">
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619398436012" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1619398436012">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619359537105" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1619359537105">
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619398436011" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1619398436010">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619359537105" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1619359537105">
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619398436010" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1619398436012">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619359537105" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619398436012" />
     <state width="1877" height="267" key="GridCell.Tab.1.bottom" timestamp="1616792158164">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
