@@ -2,11 +2,15 @@
 // (with a few tweaks by me)
 
 #include <iostream>
-#include <chrono>
 #include <string>
 #include <fstream>
 #include <complex>
 #include <thread>
+#include <mutex>
+
+#include <chrono>
+#include <ctime>
+#include <iomanip>
 
 typedef std::chrono::steady_clock theClock; // alias for clock type that's going to be used
 
@@ -27,6 +31,20 @@ void write_txt(int threads, int time, const std::string& colourOne, const std::s
 	"\n Colours: " << colourOne << " & " << colourTwo <<
 	"\n Number of threads: " << (threads + 1) <<
 	"\n Time Taken: " << time << "ms \n\n";
+}
+
+void write_time() {
+	std::ofstream outfile;
+
+	outfile.open("output\\index.txt", std::ios_base::app);
+
+	auto now = std::chrono::system_clock::now();
+	auto in_time_t = std::chrono::system_clock::to_time_t(now);
+
+	std::stringstream ss;
+	ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
+
+	outfile << filename << " Created " << ss.str() << "\n";
 }
 
 // write mandelbrot to .tga file
@@ -96,6 +114,7 @@ void compute(double left, double right, double top, double bottom, int start, in
 				++it;
 			}
 
+			std::unique_lock<std::mutex> imgLock;
 			if (it == MAX_IT) {
 				// z didn't escape the circle therefore point is in mandelbrot set
 				image[y][x] = firstColour;
@@ -207,7 +226,7 @@ int main() {
 	// <execution>
 	theClock::time_point start = theClock::now();
 
-	int threadNum = threadNumIn - 1; // array indexes start at zero so only valid numbers are a factor of width - 1
+	int threadNum = threadNumIn-1; // array indexes start at zero so only valid numbers are a factor of width - 1
 	const int chunkSize = width/threadNum; // get the size of each "chunk" that's being calculated by each thread
 
 	auto *threads = new std::thread[threadNum];
@@ -216,13 +235,13 @@ int main() {
 		threads[i] = std::thread(compute, left, right, top, bottom, (0 + chunkSize * i), chunkSize + chunkSize * i, firstColour, secondColour);
 	}
 
-	//TODO: Figure out something to put here that uses another thread
-		// must be able to share data across threads through the use of mutexes, atomic operations, or barriers
-		// must also be able to use condition variables to signal between threads
+	std::thread timeWriteThread(write_time);
 
 	for (int i = 0; i < threadNum; ++i) {
 		threads[i].join();
 	}
+
+	timeWriteThread.join();
 
 	write_tga();
 
