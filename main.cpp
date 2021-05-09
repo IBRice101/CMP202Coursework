@@ -7,6 +7,8 @@
 #include <complex>
 #include <thread>
 #include <mutex>
+#include <atomic>
+#include <condition_variable>
 
 #include <chrono>
 #include <ctime>
@@ -20,7 +22,11 @@ const int height = 960;
 
 uint32_t image[height][width]; // image data represented as 0xRRGGBB
 
-std::string filename;
+std::string filename; // name of the file
+
+std::mutex countLock; // mutex for locking the thread count
+std::atomic<int> runThreadsCount(0); // atomic int that keeps count of the number of threads that have been used
+std::condition_variable cv; // condition variable that tells a mutex when a thread has run
 
 void write_txt(int threads, int time, const std::string& colourOne, const std::string& colourTwo) {
 	std::ofstream outfile;
@@ -44,7 +50,7 @@ void write_time() {
 	std::stringstream ss;
 	ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
 
-	outfile << filename << " Created " << ss.str() << "\n";
+	outfile << "Created " << ss.str() << "\n";
 }
 
 // write mandelbrot to .tga file
@@ -114,7 +120,6 @@ void compute(double left, double right, double top, double bottom, int start, in
 				++it;
 			}
 
-			std::unique_lock<std::mutex> imgLock;
 			if (it == MAX_IT) {
 				// z didn't escape the circle therefore point is in mandelbrot set
 				image[y][x] = firstColour;
@@ -124,6 +129,9 @@ void compute(double left, double right, double top, double bottom, int start, in
 			}
 		}
 	}
+	runThreadsCount++;
+	std::cout << runThreadsCount << std::endl;
+	cv.notify_one();
 }
 
 int main() {
@@ -217,6 +225,7 @@ int main() {
 	}
 
 	std::cout << "Generating a " << firstColourName << " and " << secondColourName << " Mandelbrot Set, using " << threadNumIn << " threads..." << std::endl;
+	std::cout << "Completed Threads:" << std::endl;
 
 	double left = -2;
 	double right = 1;
@@ -234,8 +243,12 @@ int main() {
 	for (int i = 0; i < threadNum; ++i) {
 		threads[i] = std::thread(compute, left, right, top, bottom, (0 + chunkSize * i), chunkSize + chunkSize * i, firstColour, secondColour);
 	}
-
 	std::thread timeWriteThread(write_time);
+
+	std::unique_lock<std::mutex> lck(countLock);
+	while (runThreadsCount != threadNum) {
+		cv.wait(lck);
+	}
 
 	for (int i = 0; i < threadNum; ++i) {
 		threads[i].join();
