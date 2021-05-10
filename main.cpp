@@ -21,21 +21,22 @@ const int height = 960;
 
 uint32_t image[height][width]; // image data represented as 0xRRGGBB
 
-std::string filename; // name of the file
-
 /*std::mutex countLock; // mutex for locking the thread count
 std::atomic<int> runThreadsCount(0); // atomic int that keeps count of the number of threads that have been used
 std::condition_variable cv; // condition variable that tells a mutex when a thread has run*/
 
-void write_txt(int threads, int time, const std::string& colourOne, const std::string& colourTwo) {
+void write_txt(const std::string& filename, int threads, int time, const std::string& colourOne, const std::string& colourTwo) {
 	std::ofstream outfile;
 
-	outfile.open("output\\index.txt", std::ios_base::app); // append instead of overwrite
+    // change / to '\\' on windows
+	outfile.open("output/index.txt", std::ios_base::app); // append instead of overwrite
 	outfile << filename <<
 	": \n Resolution: " << width << "*" << height <<
 	"\n Colours: " << colourOne << " & " << colourTwo <<
 	"\n Number of threads: " << (threads + 1) <<
 	"\n Time Taken: " << time << "ms \n\n";
+
+	outfile.close();
 }
 
 void write_time() {
@@ -50,12 +51,12 @@ void write_time() {
 	ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
 
 	outfile << "Created " << ss.str() << "\n";
+
+	outfile.close();
 }
 
 // write mandelbrot to .tga file
-void write_tga() {
-	auto timeNow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-	filename = "output\\mandelbrot-" + std::to_string(timeNow) + ".tga"; // each file can have a unique filename
+void write_tga(const std::string& filename) {
 
 	std::ofstream outfile(filename, std::ofstream::binary);
 
@@ -212,7 +213,7 @@ int main() {
 	}
 
 	int numIn = 0;
-	std::cout << "How many threads would you like to use? (must be a factor of " << width << "):" << std::endl;
+	std::cout << "How many threads would you like to use?:" << std::endl;
 
 	while (true) {
 		std::cin >> numIn;
@@ -257,7 +258,10 @@ int main() {
 
 	std::cout << "Writing to TGA file" << std::endl;
 
-	write_tga();
+    auto timeNow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::string filename = "output/mandelbrot" + std::to_string(timeNow) + ".tga"; // each file can have a unique filename (change / to '\\' on windows)
+
+	write_tga(filename);
 
 	theClock::time_point end = theClock::now();
 	// </execution>
@@ -265,7 +269,7 @@ int main() {
 	auto timeTaken = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 	std::cout << "Time taken to generate: " << timeTaken << "ms" << std::endl;
 
-	write_txt(threadNum, timeTaken, firstColourName, secondColourName);
+	write_txt(filename, threadNum, timeTaken, firstColourName, secondColourName);
 
 	return 0;
 }
