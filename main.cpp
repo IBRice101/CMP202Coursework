@@ -61,16 +61,16 @@ void write_tga() {
 	std::ofstream outfile(filename, std::ofstream::binary);
 
 	uint8_t header[18] = {
-			0, //no image ID
-			0, //no colour map
-			2, //uncompressed 24-bit image
-			0, 0, 0, 0, 0, //empty colour map specification
-			0, 0, //X origin
-			0, 0, //Y origin
-			width & 0xFF, width >> 8 & 0xFF, //width
-			height & 0xFF, height >> 8 & 0xFF, //height
-			24, //bits per pixel
-			0, //image descriptor
+		0, //no image ID
+		0, //no colour map
+		2, //uncompressed 24-bit image
+		0, 0, 0, 0, 0, //empty colour map specification
+		0, 0, //X origin
+		0, 0, //Y origin
+		width & 0xFF, width >> 8 & 0xFF, //width
+		height & 0xFF, height >> 8 & 0xFF, //height
+		24, //bits per pixel
+		0, //image descriptor
 	};
 	outfile.write((const char *)header, 18);
 
@@ -87,6 +87,7 @@ void write_tga() {
 	}
 
 	outfile.close();
+
 
 	// error handling
 	if (!outfile)
@@ -212,19 +213,19 @@ int main() {
 			break;
 	}
 
-	int threadNumIn = 0;
+	int numIn = 0;
 	std::cout << "How many threads would you like to use? (must be a factor of " << width << "):" << std::endl;
 
 	while (true) {
-		std::cin >> threadNumIn;
-		if (width % threadNumIn != 0) {
-			std::cout << "That number is not a factor of " << width << ", please try again" << std::endl;
+		std::cin >> numIn;
+		if (numIn == 0) {
+			std::cout << "0 Is not a valid input" << std::endl;
 		} else {
 			break;
 		}
 	}
 
-	std::cout << "Generating a " << firstColourName << " and " << secondColourName << " Mandelbrot Set, using " << threadNumIn << " threads..." << std::endl;
+	std::cout << "Generating a " << firstColourName << " and " << secondColourName << " Mandelbrot Set, using " << numIn << " threads..." << std::endl;
 	std::cout << "Completed Threads:" << std::endl;
 
 	double left = -2;
@@ -235,7 +236,7 @@ int main() {
 	// <execution>
 	theClock::time_point start = theClock::now();
 
-	int threadNum = threadNumIn-1; // array indexes start at zero so only valid numbers are a factor of width - 1
+	int threadNum = numIn;
 	const int chunkSize = width/threadNum; // get the size of each "chunk" that's being calculated by each thread
 
 	auto *threads = new std::thread[threadNum];
@@ -255,6 +256,8 @@ int main() {
 	}
 
 	timeWriteThread.join();
+
+	std::cout << "Writing to TGA file" << std::endl;
 
 	write_tga();
 
