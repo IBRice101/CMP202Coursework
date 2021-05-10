@@ -9,7 +9,6 @@
 #include <mutex>
 #include <atomic>
 #include <condition_variable>
-
 #include <chrono>
 #include <ctime>
 #include <iomanip>
@@ -130,8 +129,7 @@ void compute(double left, double right, double top, double bottom, int start, in
 			}
 		}
 	}
-	runThreadsCount++;
-	std::cout << runThreadsCount << std::endl;
+	std::cout << runThreadsCount.fetch_add(1) + 1 << std::endl;
 	cv.notify_one();
 }
 
