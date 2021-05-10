@@ -11,11 +11,11 @@
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Release" CONFIG_NAME="Release" />
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8eec58ed-749c-4f6b-b557-0560a4380fc4" name="Default Changelist" comment="idk man">
+    <list default="true" id="8eec58ed-749c-4f6b-b557-0560a4380fc4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
@@ -27,7 +27,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Release" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -57,7 +57,7 @@
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Mandelbrot" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mandelbrot" TARGET_NAME="Mandelbrot" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="Mandelbrot" RUN_TARGET_NAME="Mandelbrot">
+    <configuration name="Mandelbrot" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mandelbrot" TARGET_NAME="Mandelbrot" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mandelbrot" RUN_TARGET_NAME="Mandelbrot">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -171,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620665407787</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="lil update">
+      <created>1620667058597</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1620667058597</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,17 +195,18 @@
     <MESSAGE value="removed as many global variables as possible for formatting purposes" />
     <MESSAGE value="planning" />
     <MESSAGE value="idk man" />
-    <option name="LAST_COMMIT_MESSAGE" value="idk man" />
+    <MESSAGE value="lil update" />
+    <option name="LAST_COMMIT_MESSAGE" value="lil update" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1620664334965">
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1620668056701">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620664334965" />
-    <state x="265" y="72" key="CommitChangelistDialog2" timestamp="1620665428472">
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620668056701" />
+    <state x="265" y="72" key="CommitChangelistDialog2" timestamp="1620667049909">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="265" y="72" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620665428472" />
+    <state x="265" y="72" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620667049909" />
     <state width="469" height="466" key="DebuggerActiveHint" timestamp="1620657736365">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -207,25 +215,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="702" y="262" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620665221788" />
-    <state width="1877" height="223" key="GridCell.Tab.0.bottom" timestamp="1620666448370">
+    <state width="1877" height="223" key="GridCell.Tab.0.bottom" timestamp="1620668433971">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="223" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620666448370" />
+    <state width="1877" height="223" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620668433971" />
     <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1620411951429" />
-    <state width="1877" height="223" key="GridCell.Tab.0.center" timestamp="1620666448370">
+    <state width="1877" height="223" key="GridCell.Tab.0.center" timestamp="1620668433971">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="223" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620666448370" />
+    <state width="1877" height="223" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620668433971" />
     <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1620411951429" />
-    <state width="1877" height="223" key="GridCell.Tab.0.left" timestamp="1620666448370">
+    <state width="1877" height="223" key="GridCell.Tab.0.left" timestamp="1620668433970">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="223" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620666448370" />
+    <state width="1877" height="223" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620668433970" />
     <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1620411951429" />
-    <state width="1877" height="223" key="GridCell.Tab.0.right" timestamp="1620666448370">
+    <state width="1877" height="223" key="GridCell.Tab.0.right" timestamp="1620668433971">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="223" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620666448370" />
+    <state width="1877" height="223" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620668433971" />
     <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1620411951429" />
     <state width="1877" height="232" key="GridCell.Tab.1.bottom" timestamp="1620664152617">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -243,14 +251,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="232" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620664152616" />
-    <state x="700" y="240" key="RollbackChangesDialog" timestamp="1620665485635">
+    <state x="700" y="240" key="RollbackChangesDialog" timestamp="1620668150707">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="700" y="240" key="RollbackChangesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620665485635" />
-    <state x="467" y="142" key="SettingsEditor" timestamp="1620666386483">
+    <state x="700" y="240" key="RollbackChangesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620668150707" />
+    <state x="467" y="142" key="SettingsEditor" timestamp="1620668074256">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="467" y="142" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620666386483" />
+    <state x="467" y="142" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620668074256" />
     <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1620665410338">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
