@@ -21,9 +21,9 @@ const int height = 960;
 
 uint32_t image[height][width]; // image data represented as 0xRRGGBB
 
-/*std::mutex countLock; // mutex for locking the thread count
+std::mutex countLock; // mutex for locking the thread count
 std::atomic<int> runThreadsCount(0); // atomic int that keeps count of the number of threads that have been used
-std::condition_variable cv; // condition variable that tells a mutex when a thread has run*/
+std::condition_variable cv; // condition variable that tells a mutex when a thread has run
 
 void write_txt(const std::string& name, int threads, int time, const std::string& colourOne, const std::string& colourTwo) {
 	std::ofstream outfile;
@@ -131,8 +131,8 @@ void compute(double left, double right, double top, double bottom, int start, in
 			}
 		}
 	}
-	/*std::cout << runThreadsCount.fetch_add(1) + 1 << std::endl;
-	cv.notify_one();*/
+	std::cout << runThreadsCount.fetch_add(1) + 1 << std::endl;
+	cv.notify_one();
 }
 
 int main() {
@@ -226,7 +226,7 @@ int main() {
 	}
 
 	std::cout << "Generating a " << firstColourName << " and " << secondColourName << " Mandelbrot Set, using " << numIn << " threads..." << std::endl;
-	/*std::cout << "Completed Threads:" << std::endl;*/
+	std::cout << "Completed Threads:" << std::endl;
 
 	double left = -2; // X coord
 	double right = 1; // X coord
@@ -247,10 +247,10 @@ int main() {
 	}
 	std::thread timeWriteThread(write_time); // write the current time
 
-/*	std::unique_lock<std::mutex> lck(countLock);
+	std::unique_lock<std::mutex> lck(countLock);
 	while (runThreadsCount != threadNum) {
 		cv.wait(lck);
-	}*/
+	}
 
     // join the threads in the array
 	for (int i = 0; i < threadNum; ++i) {

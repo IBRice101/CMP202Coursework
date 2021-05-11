@@ -60,11 +60,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -103,7 +98,8 @@
       <workItem from="1620215054019" duration="5655000" />
       <workItem from="1620295550030" duration="591000" />
       <workItem from="1620386413374" duration="9766000" />
-      <workItem from="1620672133630" duration="3729000" />
+      <workItem from="1620672133630" duration="3772000" />
+      <workItem from="1620766342172" duration="497000" />
     </task>
     <task id="LOCAL-00001" summary="colour stuff">
       <created>1614633408824</created>
@@ -189,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620675222245</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="refactored and commented">
+      <created>1620675904549</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1620675904550</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,6 +208,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="colour stuff" />
@@ -219,6 +223,7 @@
     <MESSAGE value="idk man" />
     <MESSAGE value="lil update" />
     <MESSAGE value="fixed segfault issue on linux w/ file name" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed segfault issue on linux w/ file name" />
+    <MESSAGE value="refactored and commented" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored and commented" />
   </component>
 </project>
