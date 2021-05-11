@@ -33,7 +33,7 @@ void write_txt(const std::string& name, int threads, int time, const std::string
 	outfile << name <<
             ": \n Resolution: " << width << "*" << height <<
             "\n Colours: " << colourOne << " & " << colourTwo <<
-            "\n Number of threads: " << (threads + 1) <<
+            "\n Number of threads: " << threads <<
             "\n Time Taken: " << time << "ms \n\n";
 
 	outfile.close();
@@ -247,6 +247,7 @@ int main() {
 	}
 	std::thread timeWriteThread(write_time); // write the current time
 
+	//FIXME: gets to here then refuses to complete once it's calculated all of the required threads
 	std::unique_lock<std::mutex> lck(countLock);
 	while (runThreadsCount != threadNum) {
 		cv.wait(lck);
