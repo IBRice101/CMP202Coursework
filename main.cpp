@@ -132,7 +132,10 @@ void compute(double left, double right, double top, double bottom, int start, in
 		}
 	}
 	std::cout << runThreadsCount.fetch_add(1) + 1 << std::endl;
+
+	countLock.lock();
 	cv.notify_one();
+	countLock.unlock();
 }
 
 int main() {
@@ -273,7 +276,7 @@ int main() {
 	auto timeTaken = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 	std::cout << "Time taken to generate: " << timeTaken << "ms" << std::endl;
 
-	write_txt(filename, threadNum, timeTaken, firstColourName, secondColourName);
+	write_txt(filename, threadNum, int(timeTaken), firstColourName, secondColourName);
 
 	return 0;
 }
