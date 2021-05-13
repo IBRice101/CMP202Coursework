@@ -15,7 +15,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8eec58ed-749c-4f6b-b557-0560a4380fc4" name="Default Changelist" comment="I THINK IT FUCKIN WORKS MATE">
+    <list default="true" id="8eec58ed-749c-4f6b-b557-0560a4380fc4" name="Default Changelist" comment="for some reason having a second colour value fucked everything up so it's gone now, black background ONLY">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
@@ -103,7 +103,7 @@
       <workItem from="1620766342172" duration="497000" />
       <workItem from="1620835231655" duration="7538000" />
       <workItem from="1620860373585" duration="6207000" />
-      <workItem from="1620923112483" duration="793000" />
+      <workItem from="1620923112483" duration="2420000" />
     </task>
     <task id="LOCAL-00001" summary="colour stuff">
       <created>1614633408824</created>
@@ -203,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620848082480</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="for some reason having a second colour value fucked everything up so it's gone now, black background ONLY">
+      <created>1620929256225</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1620929256225</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -236,6 +243,7 @@
     <MESSAGE value="fixed segfault issue on linux w/ file name" />
     <MESSAGE value="refactored and commented" />
     <MESSAGE value="I THINK IT FUCKIN WORKS MATE" />
-    <option name="LAST_COMMIT_MESSAGE" value="I THINK IT FUCKIN WORKS MATE" />
+    <MESSAGE value="for some reason having a second colour value fucked everything up so it's gone now, black background ONLY" />
+    <option name="LAST_COMMIT_MESSAGE" value="for some reason having a second colour value fucked everything up so it's gone now, black background ONLY" />
   </component>
 </project>

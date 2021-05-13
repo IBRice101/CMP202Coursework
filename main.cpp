@@ -1,7 +1,6 @@
 // Credit for Mandelbrot set generation algorithm and file write algorithm to Adam Sampson
 // (with a few tweaks by me)
 
-#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -149,7 +148,7 @@ int main() {
 	
 	// colour values
 	const int white = 0xFFFFFF;
-	const int black = 0x000000;
+	const int black = 0x0c0c0c; // not exactly black so it can stay visible
 	const int red = 0xFF0000;
 	const int orange = 0xFFA500;
 	const int yellow = 0xFFFF00;
