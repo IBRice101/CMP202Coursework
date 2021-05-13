@@ -1,6 +1,7 @@
 // Credit for Mandelbrot set generation algorithm and file write algorithm to Adam Sampson
 // (with a few tweaks by me)
 
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -25,14 +26,14 @@ std::mutex countLock; // mutex for locking the thread count
 std::atomic<int> runThreadsCount(0); // atomic int that keeps count of the number of threads that have been used
 std::condition_variable cv; // condition variable that tells a mutex when a thread has run
 
-void write_txt(const std::string& name, int threads, int time, const std::string& colourOne, const std::string& colourTwo) {
+void write_txt(const std::string& name, int threads, int time, const std::string& colour) {
 	std::ofstream outfile;
 
     // change / to '\\' on windows
 	outfile.open("output/index.txt", std::ios_base::app); // append instead of overwrite
 	outfile << name <<
             ": \n Resolution: " << width << "*" << height <<
-            "\n Colours: " << colourOne << " & " << colourTwo <<
+            "\n Colour: " << colour <<
             "\n Number of threads: " << threads <<
             "\n Time Taken: " << time << "ms \n\n";
 
@@ -73,22 +74,21 @@ void write_tga(const std::string& name) {
 		24, //bits per pixel
 		0, //image descriptor
 	};
-	outfile.write((const char *)header, 18);
+	outfile.write((const char*)header, 18);
 
 	// converted to range based thanks to clang-tidy :)
-	for (auto & y : image) {
+	for (auto& y : image) {
 		for (unsigned int x : y) {
 			uint8_t pixel[3] = {
 					static_cast<uint8_t>(x & 0xFF), // blue channel
 					static_cast<uint8_t>(x >> 8 & 0xFF), // green channel
 					static_cast<uint8_t>(x >> 16 & 0xFF), // red channel
 			};
-			outfile.write((const char *)pixel, 3);
+			outfile.write((const char*)pixel, 3);
 		}
 	}
 
 	outfile.close();
-
 
 	// error handling
 	if (!outfile)
@@ -102,7 +102,7 @@ void write_tga(const std::string& name) {
 
 // Render the Mandelbrot set into the image array.
 // The parameters specify the region on the complex plane to plot.
-void compute(double left, double right, double top, double bottom, int start, int end, int firstColour, int secondColour) {
+void compute(double left, double right, double top, double bottom, int start, int end, int colour) {
 
 	int MAX_IT = 500; // the amount of times we iterate before we determine a point isn't in the set
 
@@ -124,10 +124,10 @@ void compute(double left, double right, double top, double bottom, int start, in
 
 			if (it == MAX_IT) {
 				// z didn't escape the circle therefore point is in mandelbrot set
-				image[y][x] = firstColour;
+				image[y][x] = colour;
 			} else {
 				// z escaped within < MAX_IT, the point isn't in the set
-				image[y][x] = secondColour;
+				image[y][x] = 0x000000;
 			}
 		}
 	}
@@ -141,13 +141,11 @@ void compute(double left, double right, double top, double bottom, int start, in
 int main() {
 	std::cout << "CMP 202 Mandelbrot Set Generator - 2021 Isaac Basque-Rice" << std::endl;
 
-	// the two colours that the mandelbrot set will be made up of
-	int firstColour;
-	int secondColour;
+	// the colour that the mandelbrot set will be made up of
+	int colour;
 
-	// the names of the colours
-	std::string firstColourName;
-	std::string secondColourName;
+	// the name of the colour
+	std::string colourName;
 	
 	// colour values
 	const int white = 0xFFFFFF;
@@ -162,57 +160,30 @@ int main() {
 
 	std::cout << "Colours: \n 1: White \n 2: Black \n 3: Red \n 4: Orange \n 5: Yellow \n 6: Green \n 7: Blue \n 8: Indigo \n 9: Violet" << std::endl;
 
-	std::cout << "Please choose your foreground colour (1-9): " << std::endl;
+	std::cout << "Please choose a colour (1-9): " << std::endl;
 
-	std::cin >> firstColour;
+	std::cin >> colour;
 
-	switch (firstColour) {
-		case 1: firstColour = white; firstColourName = "White";
+	switch (colour) {
+		case 1: colour = white; colourName = "White";
 			break;
-		case 2: firstColour = black; firstColourName = "Black";
+		case 2: colour = black; colourName = "Black";
 			break;
-		case 3: firstColour = red; firstColourName = "Red";
+		case 3: colour = red; colourName = "Red";
 			break;
-		case 4: firstColour = orange; firstColourName = "Orange";
+		case 4: colour = orange; colourName = "Orange";
 			break;
-		case 5: firstColour = yellow; firstColourName = "Yellow";
+		case 5: colour = yellow; colourName = "Yellow";
 			break;
-		case 6: firstColour = green; firstColourName = "Green";
+		case 6: colour = green; colourName = "Green";
 			break;
-		case 7: firstColour = blue; firstColourName = "Blue";
+		case 7: colour = blue; colourName = "Blue";
 			break;
-		case 8: firstColour = indigo; firstColourName = "Indigo";
+		case 8: colour = indigo; colourName = "Indigo";
 			break;
-		case 9: firstColour = violet; firstColourName = "Violet";
+		case 9: colour = violet; colourName = "Violet";
 			break;
-		default: firstColour = white; firstColourName = "White";
-			break;
-	}
-
-	std::cout << "Please choose your background colour (1-9): " << std::endl;
-
-	std::cin >> secondColour;
-
-	switch (secondColour) {
-		case 1: secondColour = white; secondColourName = "White";
-			break;
-		case 2: secondColour = black; secondColourName = "Black";
-			break;
-		case 3: secondColour = red; secondColourName = "Red";
-			break;
-		case 4: secondColour = orange; secondColourName = "Orange";
-			break;
-		case 5: secondColour = yellow; secondColourName = "Yellow";
-			break;
-		case 6: secondColour = green; secondColourName = "Green";
-			break;
-		case 7: secondColour = blue; secondColourName = "Blue";
-			break;
-		case 8: secondColour = indigo; secondColourName = "Indigo";
-			break;
-		case 9: secondColour = violet; secondColourName = "Violet";
-			break;
-		default: secondColour = black; secondColourName = "Black";
+		default: colour = white; colourName = "White";
 			break;
 	}
 
@@ -228,7 +199,7 @@ int main() {
 		}
 	}
 
-	std::cout << "Generating a " << firstColourName << " and " << secondColourName << " Mandelbrot Set, using " << numIn << " threads..." << std::endl;
+	std::cout << "Generating a " << colourName << " Mandelbrot Set, using " << numIn << " threads..." << std::endl;
 	std::cout << "Completed Threads:" << std::endl;
 
 	double left = -2; // X coord
@@ -240,17 +211,16 @@ int main() {
 	theClock::time_point start = theClock::now(); // start the clock
 
 	int threadNum = numIn;
-	const int chunkSize = width/threadNum; // get the size of each "chunk" that's being calculated by each thread
+	const int chunkSize = width / threadNum; // get the size of each "chunk" that's being calculated by each thread
 
-	auto *threads = new std::thread[threadNum]; // array of threads for computing
+	auto* threads = new std::thread[threadNum]; // array of threads for computing
 
 	// populate the array
 	for (int i = 0; i < threadNum; ++i) {
-		threads[i] = std::thread(compute, left, right, top, bottom, (0 + chunkSize * i), chunkSize + chunkSize * i, firstColour, secondColour);
+		threads[i] = std::thread(compute, left, right, top, bottom, (0 + chunkSize * i), chunkSize + chunkSize * i, colour);
 	}
 	std::thread timeWriteThread(write_time); // write the current time
 
-	//FIXME: gets to here then refuses to complete once it's calculated all of the required threads
 	std::unique_lock<std::mutex> lck(countLock);
 	while (runThreadsCount != threadNum) {
 		cv.wait(lck);
@@ -276,7 +246,7 @@ int main() {
 	auto timeTaken = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 	std::cout << "Time taken to generate: " << timeTaken << "ms" << std::endl;
 
-	write_txt(filename, threadNum, int(timeTaken), firstColourName, secondColourName);
+	write_txt(filename, threadNum, int(timeTaken), colourName);
 
 	return 0;
 }
