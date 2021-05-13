@@ -1,0 +1,16 @@
+ Requirements and how I've satisfied them:
+     running at least three threads, with at least two different thread functions (or two different tasks, in a task-based system)
+         Thread(s) 1: threads[i] (compute, line 219)
+         Thread 2: timeWriteThread (write_time, line 221)
+         Thread 3: Arguable - Main thread, write_tga (line 240)
+     sharing resources safely between threads (e.g. using mutexes, atomic operations or barriers)
+         Mutexes:
+             Declared - Line 24
+             Used - Lines 135, 137, 223
+         Atomic Variables:
+             Declared - Line 25
+             Used - Lines 133, 224
+     signalling between threads (e.g. using semaphores, channels or condition variables)
+         Conditional Variables:
+             Declared: Line 26
+             Used: Lines 135, 225

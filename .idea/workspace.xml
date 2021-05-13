@@ -15,9 +15,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8eec58ed-749c-4f6b-b557-0560a4380fc4" name="Default Changelist" comment="for some reason having a second colour value fucked everything up so it's gone now, black background ONLY">
+    <list default="true" id="8eec58ed-749c-4f6b-b557-0560a4380fc4" name="Default Changelist" comment="final commit">
+      <change afterPath="$PROJECT_DIR$/req.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,9 +61,9 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -103,7 +103,8 @@
       <workItem from="1620766342172" duration="497000" />
       <workItem from="1620835231655" duration="7538000" />
       <workItem from="1620860373585" duration="6207000" />
-      <workItem from="1620923112483" duration="2420000" />
+      <workItem from="1620923112483" duration="2578000" />
+      <workItem from="1620935943980" duration="470000" />
     </task>
     <task id="LOCAL-00001" summary="colour stuff">
       <created>1614633408824</created>
@@ -210,7 +211,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620929256225</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="final commit">
+      <created>1620935739426</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1620935739426</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -244,6 +252,7 @@
     <MESSAGE value="refactored and commented" />
     <MESSAGE value="I THINK IT FUCKIN WORKS MATE" />
     <MESSAGE value="for some reason having a second colour value fucked everything up so it's gone now, black background ONLY" />
-    <option name="LAST_COMMIT_MESSAGE" value="for some reason having a second colour value fucked everything up so it's gone now, black background ONLY" />
+    <MESSAGE value="final commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="final commit" />
   </component>
 </project>
