@@ -1,0 +1,3 @@
+D:/Year2/CMP202-T2/PracticalGroups/Assessment/Mandelbrot/cmake-build-release/CMakeFiles/Mandelbrot.dir
+D:/Year2/CMP202-T2/PracticalGroups/Assessment/Mandelbrot/cmake-build-release/CMakeFiles/edit_cache.dir
+D:/Year2/CMP202-T2/PracticalGroups/Assessment/Mandelbrot/cmake-build-release/CMakeFiles/rebuild_cache.dir

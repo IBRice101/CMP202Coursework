@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/Year2/CMP202-T2/PracticalGroups/Assessment/Mandelbrot/main.cpp
+iostream
+-
+string
+-
+fstream
+-
+complex
+-
+thread
+-
+mutex
+-
+atomic
+-
+condition_variable
+-
+chrono
+-
+ctime
+-
+iomanip
+-
+

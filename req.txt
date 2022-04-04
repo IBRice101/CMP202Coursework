@@ -1,4 +1,4 @@
- Requirements and how I've satisfied them:
+Requirements and how I've satisfied them:
      running at least three threads, with at least two different thread functions (or two different tasks, in a task-based system)
          Thread(s) 1: threads[i] (compute, line 219)
          Thread 2: timeWriteThread (write_time, line 221)

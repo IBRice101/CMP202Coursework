@@ -5,19 +5,19 @@
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="Mandelbrot" targetName="Madelbrot" />
       <config projectName="Mandelbrot" targetName="Mandelbrot" />
+      <config projectName="Mandelbrot" targetName="Madelbrot" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
     <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8eec58ed-749c-4f6b-b557-0560a4380fc4" name="Default Changelist" comment="final commit">
-      <change afterPath="$PROJECT_DIR$/req.txt" afterDir="false" />
+    <list default="true" id="8eec58ed-749c-4f6b-b557-0560a4380fc4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/req.txt" beforeDir="false" afterPath="$PROJECT_DIR$/req.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,18 +52,17 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="CMakeSettings" />
   </component>
   <component name="RunManager">
-    <configuration name="Mandelbrot" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mandelbrot" TARGET_NAME="Mandelbrot" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mandelbrot" RUN_TARGET_NAME="Mandelbrot">
+    <configuration name="Mandelbrot" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mandelbrot" TARGET_NAME="Mandelbrot" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mandelbrot" RUN_TARGET_NAME="Mandelbrot">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -101,10 +100,9 @@
       <workItem from="1620386413374" duration="9766000" />
       <workItem from="1620672133630" duration="3772000" />
       <workItem from="1620766342172" duration="497000" />
-      <workItem from="1620835231655" duration="7538000" />
-      <workItem from="1620860373585" duration="6207000" />
-      <workItem from="1620923112483" duration="2578000" />
-      <workItem from="1620935943980" duration="470000" />
+      <workItem from="1620835231655" duration="6986000" />
+      <workItem from="1621436107636" duration="92000" />
+      <workItem from="1621444313151" duration="65000" />
     </task>
     <task id="LOCAL-00001" summary="colour stuff">
       <created>1614633408824</created>
@@ -197,28 +195,7 @@
       <option name="project" value="LOCAL" />
       <updated>1620675904550</updated>
     </task>
-    <task id="LOCAL-00014" summary="I THINK IT FUCKIN WORKS MATE">
-      <created>1620848082480</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1620848082480</updated>
-    </task>
-    <task id="LOCAL-00015" summary="for some reason having a second colour value fucked everything up so it's gone now, black background ONLY">
-      <created>1620929256225</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1620929256225</updated>
-    </task>
-    <task id="LOCAL-00016" summary="final commit">
-      <created>1620935739426</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1620935739426</updated>
-    </task>
-    <option name="localTasksCounter" value="17" />
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,9 +227,24 @@
     <MESSAGE value="lil update" />
     <MESSAGE value="fixed segfault issue on linux w/ file name" />
     <MESSAGE value="refactored and commented" />
-    <MESSAGE value="I THINK IT FUCKIN WORKS MATE" />
-    <MESSAGE value="for some reason having a second colour value fucked everything up so it's gone now, black background ONLY" />
-    <MESSAGE value="final commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="final commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored and commented" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1877" height="223" key="GridCell.Tab.0.bottom" timestamp="1620946405328">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="223" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620946405328" />
+    <state width="1877" height="223" key="GridCell.Tab.0.center" timestamp="1620946405328">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="223" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620946405328" />
+    <state width="1877" height="223" key="GridCell.Tab.0.left" timestamp="1620946405328">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="223" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620946405328" />
+    <state width="1877" height="223" key="GridCell.Tab.0.right" timestamp="1620946405328">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="223" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620946405328" />
   </component>
 </project>
